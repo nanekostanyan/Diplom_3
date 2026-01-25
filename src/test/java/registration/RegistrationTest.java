@@ -1,5 +1,7 @@
 package registration;
+import io.qameta.allure.Description;
 import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,8 +45,11 @@ public class RegistrationTest {
     }
 
     @Test
-    @Step("Тест: Успешная регистрации пользователя")
-    public void SuccessfulRegistration() {
+    @DisplayName("Успешная регистрация пользователя")
+    @Description("Через Главную страницу, переходим на страницу Авторизации, с которой попадаем на страницу Регистрации. " +
+            "Вводим валидные данные и создаём нового пользователя. " +
+            "Авторизуемся под новым пользователем через API, чтобы проверить что он успешно создан.")
+    public void successfulRegistration() {
         mainPage.linkToAccountClick();
 
         Assert.assertTrue(loginPage.isOpen());
@@ -64,8 +69,11 @@ public class RegistrationTest {
     }
 
     @Test
-    @Step("Тест: Неудачная попытка регистрации пользователя с коротким (<6 символов) паролем")
-    public void RegistrationWUncorrectedPassword() {
+    @DisplayName("Неудачная попытка регистрации пользователя с коротким паролем")
+    @Description("Через Главную страницу, переходим на страницу Авторизации, с которой попадаем на страницу Регистрации. " +
+            "Вводим валидные данные, но в качестве пароля используем пароль длиной от 1 до 5 символов. " +
+            "Получаем ошибку под полем ввода пароля, так как минимальная допустимая длина для пароля составляет 6 символов.")
+    public void registrationWUncorrectedPassword() {
         this.userPassword = RandomGenerator.generateString(1, 5); // Пароль невалиден, если его размер меньше 6
 
         mainPage.linkToAccountClick();

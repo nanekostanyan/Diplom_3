@@ -17,12 +17,4 @@ public class Base {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
     }
-
-    @After
-    public void shutDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-        RestAssured.reset();
-    }
 }

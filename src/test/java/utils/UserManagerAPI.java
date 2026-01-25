@@ -30,23 +30,21 @@ public class UserManagerAPI {
     // Методы запросов к API
 
     @Step("Создание пользователя")
-    public UserRegisterResponse createTestUser() {
+    public void createTestUser() {
         this.lastEmail = RandomGenerator.generateEmail();
         this.lastPassword = RandomGenerator.generateString();
         String name = RandomGenerator.generateString();
 
         UserRegisterRequest request = new UserRegisterRequest(this.lastEmail, this.lastPassword, name);
 
-        Response response = RestAssured.given()
+        this.lastResponse = RestAssured.given()
                 .header("Content-type", "application/json")
                 .body(request)
                 .when()
                 .post(REGISTER);
-        response.then().statusCode(SC_OK);
 
-        UserRegisterResponse resp = response.body().as(UserRegisterResponse.class);
+        UserRegisterResponse resp = this.lastResponse.body().as(UserRegisterResponse.class);
         this.lastAccessToken = resp.getAccessToken();
-        return resp;
     }
 
     @Step("Авторизуемся по заданным учётным данным")
@@ -57,9 +55,7 @@ public class UserManagerAPI {
                 .body(loginUserRequest)
                 .when()
                 .post(LOGIN);
-        if (this.lastResponse.statusCode() == SC_OK) {
-            saveLastAccessToken();
-        }
+        saveLastAccessToken();
     }
 
     @Step("Удаляем пользователя по учётным данным")
@@ -102,6 +98,7 @@ public class UserManagerAPI {
     @Step("Проверяем код ответа")
     public void checkResponseSC(int sc) {
         assertNotNull(this.lastResponse);
+        int sss = lastResponse.statusCode();
         this.lastResponse.then().statusCode(sc);
     }
 

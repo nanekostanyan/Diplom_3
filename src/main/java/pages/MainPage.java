@@ -96,17 +96,17 @@ public class MainPage extends Base {
 
     // Проверки
 
-    @Step("Проверяем активность таб `Булки`")
+    @Step("Проверяем активность таба `Булки`")
     public void checkToppingBun() {
         checkTopping(BUN_TAG_NAME);
     }
 
-    @Step("Проверяем активность таб `Соусы`")
+    @Step("Проверяем активность таба `Соусы`")
     public void checkToppingSauce() {
         checkTopping(SAUCES_TAG_NAME);
     }
 
-    @Step("Проверяем активность таб `Начинки`")
+    @Step("Проверяем активность таба `Начинки`")
     public void checkToppingFilling() {
         checkTopping(FILLINGS_TAG_NAME);
     }
@@ -119,7 +119,7 @@ public class MainPage extends Base {
         checkSectionTitle(topping);
         // Проверяем наличие нужных ингредиентов
         checkIngredientsPresence(topping, 2);
-        // После скролла возвращаемся к табам, чтобы восстанавливаем активный таб
+        // После скролла возвращаемся к табам, чтобы восстановить активный таб
         scrollToTabs();
 
         // Убеждаемся, что нужный таб всё ещё активен после скролла
@@ -142,7 +142,7 @@ public class MainPage extends Base {
         wait.until(ExpectedConditions.textToBePresentInElementLocated(activeTab, expectedTabName));
 
         String actualText = driver.findElement(activeTab).getText();
-        Assert.isTrue(actualText.equals(expectedTabName), String.format("Ожидалось что активен будет таб `%s`, но активен `%s`", actualText, expectedTabName));
+        Assert.isTrue(actualText.equals(expectedTabName), String.format("Ожидалось, что активен будет таб `%s`, но активен `%s`", actualText, expectedTabName));
     }
 
     @Step("Ищем среди всех заголовков тот, который отображается")
@@ -174,17 +174,17 @@ public class MainPage extends Base {
         return ingredients.size();
     }
 
-    @Step("Проверяем, что секция `Булки` активен")
+    @Step("Проверяем, что секция `Булки` активна")
     public boolean isBunsSectionActive() {
         return isSectionActive(BUN_TAG_NAME );
     }
 
-    @Step("Проверяем, что секция `Соусы` активен")
+    @Step("Проверяем, что секция `Соусы` активна")
     public boolean isSaucesSectionActive() {
         return isSectionActive(SAUCES_TAG_NAME);
     }
 
-    @Step("Проверяем, что секция `Начинки` активен")
+    @Step("Проверяем, что секция `Начинки` активна")
     public boolean isFillingsSectionActive() {
         return isSectionActive(FILLINGS_TAG_NAME);
     }
@@ -225,7 +225,7 @@ public class MainPage extends Base {
         return currentActiveTab.equals(sectionName);
     }
 
-    @Step("Проверяем, что заголовок секция отображается")
+    @Step("Проверяем, что заголовок секции отображается")
     private boolean isSectionTitleDisplayed(String sectionName) {
         By sectionLocator = By.xpath(String.format(sectionTitleLocatorFormatString, sectionName));
         return driver.findElement(sectionLocator).isDisplayed();
