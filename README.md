@@ -74,3 +74,8 @@ mvn clean test -Dbrowser=yandex
 ```
 mvn allure:serve
 ```
+Чтобы новые изменения Allure заккомитились, нужно вызвать
+```
+git add -f target/allure-results/
+```
+, так как gitignore скрывает новые файлы в папке target
